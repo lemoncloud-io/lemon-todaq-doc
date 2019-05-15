@@ -1,12 +1,13 @@
 # lemon-todaq-doc
 
-Restfull Micro-Service to support general commerce above toda block-chain.
+Restfull Micro-Service to support general commerce above TodaQ block-chain technology.
 
 # Objective
 
 - Support general commerce payment based on [TodaQ API](https://todaqfinance.com/)
-- Ready to deploy in AWS Cloud
-- Provide a web based admin console for host.
+- Ready to deploy in AWS Cloud in 3 minutes.
+- Provide a web based admin console for payment management.
+- Agent module in nodejs, python for developer.
 
 
 # Requirements
@@ -24,7 +25,7 @@ Restfull Micro-Service to support general commerce above toda block-chain.
 
 1. `연결(link)`: Connect current user with TODAQ's Account (or create new one)
     - `Account Type`: BIZ/INV
-    - `Account ID`: save the encrypted todaq's account-id.
+    - `Account ID`: save the encrypted todaq's account-id into KMS.
 
 1. `활성(activate)`: Change `active` state in TODAQ.
     - `Active State`: ...
@@ -32,6 +33,9 @@ Restfull Micro-Service to support general commerce above toda block-chain.
 1. `동기화(sync)`: Synchronize information, and aggregate total value of coins.
     - `Balance`: total balance of coins.
     - `Sync Date`: timestamp of synchronization (including webhook callback).
+
+1. `패스코드(passcode)`: Confirm the transaction per account/enterprise.
+    - `Digit Code`: 4~6 digits number.
 
 
 ## 동전 (Coin)
