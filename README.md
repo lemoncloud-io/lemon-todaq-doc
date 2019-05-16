@@ -100,12 +100,37 @@ Restfull Micro-Service to support general commerce above TodaQ block-chain techn
 --------------------
 # CHECK THIS #
 
-- [ ] search files by `<file-type-id>`? or scan all files per acount in order to aggregate?
+- [x] search files by `<file-type-id>`? or scan all files per acount in order to aggregate?
     - 'Accounts - Get File Types' -> 'Accounts - Get Files by Type'
-- [ ] define each state of `file(coin)`, `transaction`.
-- [ ] size of meta data in file. purpose of meta history?
-- [ ] use-case of 'Files Proofs'
-- [ ] implementing of TodaQ app.
-- [ ] search maximum limit/page number.
-- [ ] common error handling 
+- [x] define each state of `file(coin)`, `transaction`.
+- [x] size of meta data in file. purpose of meta history? -> 4MB limit of payload, or use payload-hash.
+    - every transation, each meta data will be appended to file's meta.
+- [x] use-case of 'Files Proofs'
+- [x] implementing of TodaQ app -> cupcake
+- [x] search maximum limit/page number -> see `total-results`.
+- [x] common error handling 
+    - duplicated-file: fileid = Hash(payload-hash, merckle-root, first owner)
+- [ ] de-nomination will come in soon.git
+- [ ] synchronization concern in queue order.
+    - how many of available files?
+- [ ] open-source and magic-key -> no way.
 
+
+--------------------
+# CALLBACK/WEBHOOK #
+
+{
+    type: "transaction-update",
+    transaction-id: ...,
+}
+
+
+| STATUS                | description   | state     | 
+|--                     |--             |--         |
+| PENDING               | after 0~30s -> SUBMITTED      |    in-flight  |
+| SUBMITTED             | in 30s -> SENDER_COMPLETE     |   in-flight   |
+| SENDER-COMPLETE       | in 1s -> RECEPIENT-COMPLETE   | gone          |
+| RECIPIENT-COMPLETE    | completed tx                  | spendable     |
+| INCOMPLETE            | need to re-submit transaction with same tid? | - |
+
+- possible to add webhook in future upon request.
