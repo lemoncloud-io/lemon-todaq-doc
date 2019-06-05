@@ -36,20 +36,35 @@ Restfull Micro-Service to support general commerce above TodaQ block-chain techn
 
 1. `패스코드(passcode)`: Confirm the transaction per account/enterprise.
     - `Digit Code`: 4~6 digits number.
+    * save in encrypted string by KMS
 
 
 ## 동전 (Coin)
 
 - TYPE: `COIN`
 - Like coins in real-world, it has value estimation as 10 KRW, 100 KRW
-- Can be matched with TODAQ's `<file-type-id>` attribute.
+- Can be matched with TODAQ's `<file-type-id>` attribute => only possible to have hash-key.
 - Only define the specifications (like 10KRW) about each coin.
 
+1. `정의(define)`: define root/child type of coin. (role: `admin`)
+    - `file-type-id`: <null> for root. <id> for childs.
+    - `file-type`: `COIN`
+    - `initial-owner`: enterprise id (or bank of coin).
+    - `coin-code`: code like USD/SOM/KRW/... (inherit from root)
+    - `coin-name`: readable name. (inherit from root)
+    - `coin-note`: like 10/100/500/1000. (only for child)
+    - `hash-code`: = hash(code + intial-owner + name + note)
+
 1. `발행(issue)`: Generate coins like exchange-bank in real world (but, enterprisor has ownership)
-    - `Coin Name`: SOM/KRW/...
-    - `Minimum Value`: 10 SOM
-    - `Coin ID`: same as `<file-id>`
-    - `Issue Reason`: ...
+    - `id`: same as `<file-id>`
+    - `file-type-id`: id of `COIN`.
+    - `file-type`: `COIN`
+    - `initial-owner`: enterprise id (or bank of coin).
+    - `coin-code`: code like USD/SOM/... (inherit from file-type-id)
+    - `coin-note`: note value (inherit from file-type-id)
+    - `issue-date`: <timestamp>
+    - `issue-reason`: ...
+    - `hash-code`: = hash(type-id + intial-owner + type + code + node + date)
 
 1. `폐기(trash)`: Trash coins only by Owner.
     - `Trash Account`: ...
